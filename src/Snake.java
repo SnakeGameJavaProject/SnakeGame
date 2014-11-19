@@ -205,6 +205,13 @@ public class Snake {
             }
         });
         
+        JMenuItem orange = new JMenuItem("Orange");
+        orange.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                startNewGame2(Color.ORANGE);
+            }
+        });
+        
         JMenuItem green = new JMenuItem("Green");
         green.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -224,83 +231,92 @@ public class Snake {
         color.add(blue);
         color.add(pink);
         color.add(yellow);
+        color.add(orange);
         color.add(green);
         color.add(def);
         mymbar.add(color);
         
         JMenu bg = new JMenu("Background");
 
-        JMenuItem aurora = new JMenuItem("Aurora");
-        aurora.addActionListener(new ActionListener() {
+        JMenuItem blackBG = new JMenuItem("Black");
+        blackBG.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                board.setBackground(Color.MAGENTA);
+                board.setBackground(Color.BLACK);
             }
         });
-        JMenuItem city = new JMenuItem("City");
-        city.addActionListener(new ActionListener() {
+        JMenuItem blueBG = new JMenuItem("Blue");
+        blueBG.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                startNewGame2(Color.BLUE);
+                board.setBackground(Color.BLUE);
             }
         });
-        JMenuItem cloud = new JMenuItem("Cloud");
-        cloud.addActionListener(new ActionListener() {
+        JMenuItem cyanBG = new JMenuItem("Cyan");
+        cyanBG.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                startNewGame2(Color.PINK);
-            }
-        });
-        
-        JMenuItem land = new JMenuItem("Land");
-        land.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                startNewGame2(Color.YELLOW);
+                board.setBackground(Color.CYAN);
             }
         });
         
-        JMenuItem night = new JMenuItem("Night");
-        night.addActionListener(new ActionListener() {
+        JMenuItem greyBG = new JMenuItem("Grey");
+        greyBG.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                startNewGame2(Color.BLACK);
+                board.setBackground(Color.GRAY);
             }
         });
         
-        JMenuItem runway = new JMenuItem("Runway");
-        runway.addActionListener(new ActionListener() {
+        JMenuItem redBG = new JMenuItem("Red");
+        redBG.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                startNewGame2(Color.BLACK);
+                board.setBackground(Color.RED);
             }
         });
         
-        JMenuItem sakura = new JMenuItem("Sakura");
-        sakura.addActionListener(new ActionListener() {
+        JMenuItem orangeBG = new JMenuItem("Orange");
+        orangeBG.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                startNewGame2(Color.BLACK);
+                board.setBackground(Color.ORANGE);
             }
         });
         
-        JMenuItem storm = new JMenuItem("Storm");
-        storm.addActionListener(new ActionListener() {
+        JMenuItem pinkBG = new JMenuItem("Pink");
+        pinkBG.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                startNewGame2(Color.BLACK);
+                board.setBackground(Color.PINK);
             }
         });
         
-        JMenuItem thunder = new JMenuItem("Thunder");
-        thunder.addActionListener(new ActionListener() {
+        JMenuItem greenBG = new JMenuItem("Green");
+        greenBG.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                startNewGame2(Color.BLACK);
+                board.setBackground(Color.GREEN);
+            }
+        });
+        
+        JMenuItem yellowBG = new JMenuItem("Yellow");
+        yellowBG.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                board.setBackground(Color.YELLOW);
+            }
+        });
+        
+        JMenuItem whiteBG = new JMenuItem("White");
+        whiteBG.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                board.setBackground(Color.WHITE);
             }
         });
 
-        bg.add(aurora);
-        bg.add(city);
-        bg.add(cloud);
-        bg.add(land);
-        bg.add(night);
-        bg.add(runway);
-        bg.add(sakura);
-        bg.add(storm);
-        bg.add(thunder);       
+        bg.add(blackBG);
+        bg.add(blueBG);
+        bg.add(cyanBG);
+        bg.add(greyBG);
+        bg.add(redBG);
+        bg.add(orangeBG);
+        bg.add(pinkBG);
+        bg.add(greenBG);
+        bg.add(yellowBG);
+        bg.add(whiteBG);       
         mymbar.add(bg);
 
         JMenu help = new JMenu("Help");
