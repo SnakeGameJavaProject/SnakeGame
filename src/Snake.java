@@ -1,15 +1,17 @@
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
 
-public class Snake {
+public class Snake {    
 
     // GUI components
     private JPanel board;
     private JButton[] snakeBodyPart;
     private JButton bonusfood;
     private JTextArea scoreViewer;
+    private int score_pluser=5;
 
     // Constants
     private final int SNAKE_RUNNING_SPEED_FASTEST = 25;
@@ -20,9 +22,9 @@ public class Snake {
     private final int BOARD_HEIGHT = 250;
     private final int SCORE_BOARD_HEIGHT = 20;
     private final int SNAKE_LENGTH_DEFAULT = 4;
-    private final int SNAKE_BODY_PART_SQURE = 10;
+    private final int SNAKE_BODY_PART_SQURE = 10;   
     private final int BONUS_FOOD_SQURE = 15;
-    private final Point INIT_POINT = new Point(100, 150);
+    private final Point INIT_POINT = new Point(100, 150);    
 
     // Others values
     private enum GAME_TYPE {
@@ -137,6 +139,7 @@ public class Snake {
         beginner.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 selectedSpeed = SNAKE_RUNNING_SPEED_NORMAL;
+                score_pluser = 3;
                 startNewGame();
             }
         });
@@ -144,6 +147,7 @@ public class Snake {
         normal.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 selectedSpeed = SNAKE_RUNNING_SPEED_FAST;
+                score_pluser = 5;
                 startNewGame();
             }
         });
@@ -151,6 +155,7 @@ public class Snake {
         expert.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 selectedSpeed = SNAKE_RUNNING_SPEED_FASTER;
+                score_pluser = 7;
                 startNewGame();
             }
         });
@@ -158,6 +163,7 @@ public class Snake {
         excellent.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 selectedSpeed = SNAKE_RUNNING_SPEED_FASTEST;
+                score_pluser = 9;
                 startNewGame();
             }
         });
@@ -340,7 +346,8 @@ public class Snake {
         totalBodyPart = SNAKE_LENGTH_DEFAULT;
         directionX = SNAKE_BODY_PART_SQURE;
         directionY = 0;
-        score = 0;
+        score = 0;        
+        
         isRunningLeft = false;
         isRunningRight = true;
         isRunningUp = true;
@@ -375,7 +382,7 @@ public class Snake {
         // Initially the snake has three body part.
         for (int i = 0; i < totalBodyPart; i++) {
             snakeBodyPart[i] = new JButton();
-            snakeBodyPart[i].setBounds(x, y, SNAKE_BODY_PART_SQURE, SNAKE_BODY_PART_SQURE);
+            snakeBodyPart[i].setBounds(x, y, SNAKE_BODY_PART_SQURE, SNAKE_BODY_PART_SQURE);                        
             snakeBodyPart[i].setBackground(c);
             board.add(snakeBodyPart[i]);
             // Set location of the next body part of the snake.
@@ -399,6 +406,12 @@ public class Snake {
         snakeBodyPart[totalBodyPart] = new JButton();
         snakeBodyPart[totalBodyPart].setEnabled(false);
         snakeBodyPart[totalBodyPart].setBounds(randomX, randomY, SNAKE_BODY_PART_SQURE, SNAKE_BODY_PART_SQURE);
+        Random random = new Random();
+        int red = random.nextInt(255);
+        int green = random.nextInt(255);
+        int blue = random.nextInt(255);
+        Color randomColor = new Color(red,green,blue);
+        snakeBodyPart[totalBodyPart].setBackground(randomColor);
         board.add(snakeBodyPart[totalBodyPart]);
 
         totalBodyPart++;
@@ -448,7 +461,7 @@ public class Snake {
         // Check has snake touched the food?
         if (newHeadLocX == foodLocX && newHeadLocY == foodLocY) {
             // Set score.
-            score += 5;
+            score += this.score_pluser;
             scoreViewer.setText("Score==>" + score);
 
             // Check bonus food should be given or not?
