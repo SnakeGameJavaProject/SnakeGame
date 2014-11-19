@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.util.*;
 
 public class Snake {
+
     // GUI components
     private JPanel board;
     private JButton[] snakeBodyPart;
@@ -24,7 +25,10 @@ public class Snake {
     private final Point INIT_POINT = new Point(100, 150);
 
     // Others values
-    private enum GAME_TYPE {NO_MAZE, BORDER, TUNNEL};
+    private enum GAME_TYPE {
+
+        NO_MAZE, BORDER, TUNNEL
+    };
     private int selectedSpeed = SNAKE_RUNNING_SPEED_FASTER;
     private GAME_TYPE selectedGameType = GAME_TYPE.NO_MAZE;
     private int totalBodyPart;
@@ -46,7 +50,7 @@ public class Snake {
         // initialize GUI.
         init();
         // Create Initial body of a snake.
-        createInitSnake();
+        createInitSnake(Color.BLACK);
         // Initialize Thread.
         isRunning = true;
         createThread();
@@ -54,7 +58,7 @@ public class Snake {
 
     public void init() {
         JFrame frame = new JFrame("Snake");
-        frame.setSize(500, 350);
+        frame.setSize(500, 330);
 
         //Create Menue bar with functions
         setJMenueBar(frame);
@@ -163,11 +167,147 @@ public class Snake {
         level.add(excellent);
         mymbar.add(level);
 
+        JMenu color = new JMenu("Color");
+
+        JMenuItem white = new JMenuItem("White");
+        white.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                startNewGame2(Color.WHITE);
+            }
+        });
+        
+        JMenuItem red = new JMenuItem("Red");
+        red.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                startNewGame2(Color.RED);
+            }
+        });
+        
+        JMenuItem blue = new JMenuItem("Blue");
+        blue.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                startNewGame2(Color.BLUE);
+            }
+        });
+        JMenuItem pink = new JMenuItem("Pink");
+        pink.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                startNewGame2(Color.PINK);
+            }
+        });
+        
+        JMenuItem yellow = new JMenuItem("Yellow");
+        yellow.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                startNewGame2(Color.YELLOW);
+            }
+        });
+        
+        JMenuItem green = new JMenuItem("Green");
+        green.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                startNewGame2(Color.GREEN);
+            }
+        });
+        
+        JMenuItem def = new JMenuItem("Default");
+        def.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                startNewGame2(Color.BLACK);
+            }
+        });
+        
+        color.add(white);
+        color.add(red);
+        color.add(blue);
+        color.add(pink);
+        color.add(yellow);
+        color.add(green);
+        color.add(def);
+        mymbar.add(color);
+        
+        JMenu bg = new JMenu("Background");
+
+        JMenuItem aurora = new JMenuItem("Aurora");
+        aurora.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                board.setBackground(Color.MAGENTA);
+            }
+        });
+        JMenuItem city = new JMenuItem("City");
+        city.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                startNewGame2(Color.BLUE);
+            }
+        });
+        JMenuItem cloud = new JMenuItem("Cloud");
+        cloud.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                startNewGame2(Color.PINK);
+            }
+        });
+        
+        JMenuItem land = new JMenuItem("Land");
+        land.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                startNewGame2(Color.YELLOW);
+            }
+        });
+        
+        JMenuItem night = new JMenuItem("Night");
+        night.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                startNewGame2(Color.BLACK);
+            }
+        });
+        
+        JMenuItem runway = new JMenuItem("Runway");
+        runway.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                startNewGame2(Color.BLACK);
+            }
+        });
+        
+        JMenuItem sakura = new JMenuItem("Sakura");
+        sakura.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                startNewGame2(Color.BLACK);
+            }
+        });
+        
+        JMenuItem storm = new JMenuItem("Storm");
+        storm.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                startNewGame2(Color.BLACK);
+            }
+        });
+        
+        JMenuItem thunder = new JMenuItem("Thunder");
+        thunder.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                startNewGame2(Color.BLACK);
+            }
+        });
+
+        bg.add(aurora);
+        bg.add(city);
+        bg.add(cloud);
+        bg.add(land);
+        bg.add(night);
+        bg.add(runway);
+        bg.add(sakura);
+        bg.add(storm);
+        bg.add(thunder);       
+        mymbar.add(bg);
+
         JMenu help = new JMenu("Help");
         JMenuItem creator = new JMenuItem("Creator");
         JMenuItem instruction = new JMenuItem("Instraction");
         creator.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {                
+            public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(null, "Author: Abdullah al hasb\nVersion: 1.0.1 \n Blog: http://imhasib.wordpress.com/");
             }
         });
@@ -195,7 +335,15 @@ public class Snake {
     void startNewGame() {
         resetDefaultValues();
         board.removeAll();
-        createInitSnake();
+        createInitSnake(Color.BLACK);
+        scoreViewer.setText("Score==>" + score);
+        isRunning = true;
+    }
+
+    void startNewGame2(Color c) {
+        resetDefaultValues();
+        board.removeAll();
+        createInitSnake(c);
         scoreViewer.setText("Score==>" + score);
         isRunning = true;
     }
@@ -203,16 +351,16 @@ public class Snake {
     /**
      * This method is responsible to initialize the snake with four body part.
      */
-    public void createInitSnake() {
+    public void createInitSnake(Color c) {
         // Location of the snake's head.
         int x = (int) INIT_POINT.getX();
         int y = (int) INIT_POINT.getY();
 
         // Initially the snake has three body part.
         for (int i = 0; i < totalBodyPart; i++) {
-            snakeBodyPart[i] = new JButton();            
+            snakeBodyPart[i] = new JButton();
             snakeBodyPart[i].setBounds(x, y, SNAKE_BODY_PART_SQURE, SNAKE_BODY_PART_SQURE);
-            snakeBodyPart[i].setBackground(Color.GRAY);
+            snakeBodyPart[i].setBackground(c);
             board.add(snakeBodyPart[i]);
             // Set location of the next body part of the snake.
             x = x - SNAKE_BODY_PART_SQURE;
@@ -223,10 +371,11 @@ public class Snake {
     }
 
     /**
-     * This method is responsible to create food of a snake.
-     * The most last part of this snake is treated as a food, which has not become a body part of the snake yet.
-     * This food will be the body part if and only if when snake head will touch it.
-    */
+     * This method is responsible to create food of a snake. The most last part
+     * of this snake is treated as a food, which has not become a body part of
+     * the snake yet. This food will be the body part if and only if when snake
+     * head will touch it.
+     */
     void createFood() {
         int randomX = SNAKE_BODY_PART_SQURE + (SNAKE_BODY_PART_SQURE * random.nextInt(48));
         int randomY = SNAKE_BODY_PART_SQURE + (SNAKE_BODY_PART_SQURE * random.nextInt(23));
@@ -253,8 +402,7 @@ public class Snake {
     }
 
     /**
-     * Process next step of the snake.
-     * And decide what should be done.
+     * Process next step of the snake. And decide what should be done.
      */
     void processNextStep() {
         boolean isBorderTouched = false;
@@ -296,22 +444,22 @@ public class Snake {
         }
 
         // Check has snake touched the bonus food?
-        if (isBonusFoodAvailable &&
-                pointOfBonusFood.x <= newHeadLocX &&
-                pointOfBonusFood.y <= newHeadLocY &&
-                (pointOfBonusFood.x + SNAKE_BODY_PART_SQURE) >= newHeadLocX &&
-                (pointOfBonusFood.y + SNAKE_BODY_PART_SQURE) >= newHeadLocY) {
+        if (isBonusFoodAvailable
+                && pointOfBonusFood.x <= newHeadLocX
+                && pointOfBonusFood.y <= newHeadLocY
+                && (pointOfBonusFood.x + SNAKE_BODY_PART_SQURE) >= newHeadLocX
+                && (pointOfBonusFood.y + SNAKE_BODY_PART_SQURE) >= newHeadLocY) {
             board.remove(bonusfood);
             score += 100;
             scoreViewer.setText("Score ==>" + score);
             isBonusFoodAvailable = false;
         }
-        
+
         // Check is game over?
-        if(isGameOver(isBorderTouched, newHeadLocX, newHeadLocY)) {
-           scoreViewer.setText("GAME OVER	" + score);
-           isRunning = false;
-           return;
+        if (isGameOver(isBorderTouched, newHeadLocX, newHeadLocY)) {
+            scoreViewer.setText("GAME OVER	" + score);
+            isRunning = false;
+            return;
         } else {
             // Move the whole snake body to forword.
             moveSnakeForword(newHeadLocX, newHeadLocY);
@@ -321,18 +469,20 @@ public class Snake {
     }
 
     /**
-     * This method is responsible to detect is game over or not?
-     * Game should be over while snake is touched by any maze or by itself.
-     * If any one want to add new type just declare new GAME_TYPE enum value and put logic in this method.
+     * This method is responsible to detect is game over or not? Game should be
+     * over while snake is touched by any maze or by itself. If any one want to
+     * add new type just declare new GAME_TYPE enum value and put logic in this
+     * method.
+     *
      * @param isBorderTouched
      * @param headLocX
      * @param headLocY
      * @return
      */
     private boolean isGameOver(boolean isBorderTouched, int headLocX, int headLocY) {
-        switch(selectedGameType) {
+        switch (selectedGameType) {
             case BORDER:
-                if(isBorderTouched) {
+                if (isBorderTouched) {
                     return true;
                 }
                 break;
@@ -342,10 +492,10 @@ public class Snake {
             default:
                 break;
         }
-        
+
         for (int i = SNAKE_LENGTH_DEFAULT; i < totalBodyPart - 2; i++) {
             Point partLoc = snakeBodyPart[i].getLocation();
-            System.out.println("("+partLoc.x +", "+partLoc.y+")  ("+headLocX+", "+headLocY+")");
+            System.out.println("(" + partLoc.x + ", " + partLoc.y + ")  (" + headLocX + ", " + headLocY + ")");
             if (partLoc.equals(new Point(headLocX, headLocY))) {
                 return true;
             }
@@ -355,13 +505,16 @@ public class Snake {
     }
 
     /**
-     * Every body part should be placed to location of the front part.
-     * For example if part:0(100,150) , part: 1(90, 150), part:2(80,150) and new head location (110,150) then,
-       Location of part:2 should be (80,150) to (90,150), part:1 will be (90,150) to (100,150) and part:3 will be (100,150) to (110,150)
-     * This movement process should be start from the last part to first part.
-     * We must avoid the food that means most last body part of the snake.
-     * Notice that we write (totalBodyPart - 2) instead of (totalBodyPart - 1).
-     * (totalBodyPart - 1) means food and (totalBodyPart - 2) means tail.
+     * Every body part should be placed to location of the front part. For
+     * example if part:0(100,150) , part: 1(90, 150), part:2(80,150) and new
+     * head location (110,150) then, Location of part:2 should be (80,150) to
+     * (90,150), part:1 will be (90,150) to (100,150) and part:3 will be
+     * (100,150) to (110,150) This movement process should be start from the
+     * last part to first part. We must avoid the food that means most last body
+     * part of the snake. Notice that we write (totalBodyPart - 2) instead of
+     * (totalBodyPart - 1). (totalBodyPart - 1) means food and (totalBodyPart -
+     * 2) means tail.
+     *
      * @param headLocX
      * @param headLocY
      */
@@ -421,7 +574,7 @@ public class Snake {
 
     public void runIt() {
         while (true) {
-            if(isRunning) {
+            if (isRunning) {
                 // Process what should be next step of the snake.
                 processNextStep();
                 try {
