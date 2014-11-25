@@ -444,13 +444,13 @@ public class Snake {
         int foodLocY = (int) snakeBodyPart[totalBodyPart - 1].getLocation().getY();
 
         // Check does snake cross the border of the board?
-        if (newHeadLocX >= BOARD_WIDTH - SNAKE_BODY_PART_SQURE) {
+        if (newHeadLocX > BOARD_WIDTH - SNAKE_BODY_PART_SQURE) {
             newHeadLocX = 0;
             isBorderTouched = true;
         } else if (newHeadLocX <= 0) {
             newHeadLocX = BOARD_WIDTH - SNAKE_BODY_PART_SQURE;
             isBorderTouched = true;
-        } else if (newHeadLocY >= BOARD_HEIGHT - SNAKE_BODY_PART_SQURE) {
+        } else if (newHeadLocY > BOARD_HEIGHT - SNAKE_BODY_PART_SQURE) {
             newHeadLocY = 0;
             isBorderTouched = true;
         } else if (newHeadLocY <= 0) {
